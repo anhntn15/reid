@@ -1,0 +1,28 @@
+name: light-off-CR-L1
+
+dataset:
+  folder: camera-0-light-off
+  grayscale: False
+  class: model.datasets.pallet502.PalletDataset
+  args:
+    shuffle: True  # shuffle image ordering when reading dataset
+    max_sample: None
+    train_ratio: 0.8  # if < 1.0, do train_test_split
+    split_by_pid: True  # no pallet overlapping between train/test
+  transform:
+  - name: resize
+    height: 512
+    width: 768
+
+training:
+  data_loader:
+    batch_size: 64
+    shuffle: True
+  epoch: 20
+  criterion: torch.nn.L1Loss
+
+model:
+  name: model.autoencoder.ConvReAE
+  args:
+    img_num_channel: 3
+  folder: tmp/

@@ -1,0 +1,35 @@
+name: siamese502-colorbased2-AB-on-0
+
+dataset:
+  folder: camera-1-light-on
+  grayscale: False
+  class: model.datasets.pallet502.SelectiveSiameseDataset
+  args:
+    dup: 3
+    path_to_subsets: kfold_fn/light_on_fold_0.json
+  transform:
+    - name: resize
+      height: 256
+      width: 192
+    - name: colorbased2
+      h: 16
+      w: 16
+      f1: average-color
+      f2: brightness
+
+training:
+  data_loader:
+    batch_size: 256
+    shuffle: True
+  epoch: 80
+  criterion:
+    name: torch.nn.TripletMarginLoss
+    reduction: none
+    margin: 2
+
+
+model:
+  name: model.siamese.SiameseColorbased2
+  args:
+    last_fc: True
+  folder: tmp/BS

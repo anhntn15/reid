@@ -1,0 +1,11 @@
+opencv-python
+matplotlib
+pyyaml
+torch==1.11.0
+torchvision==0.12.0
+torch-scatter
+torch-sparse
+torch-cluster
+torch-spline-conv
+torch-geometric
+-f https://data.pyg.org/whl/torch-1.11.0+cpu.html

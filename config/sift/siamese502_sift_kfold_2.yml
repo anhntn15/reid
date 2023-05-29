@@ -1,0 +1,30 @@
+name: siamese502-kfold-sift-off-2
+
+dataset:
+  folder: camera-0-light-off
+  grayscale: True
+  class: model.datasets.pallet502.SiameseDataset
+  args:
+    dup: 3
+    path_to_subsets: kfold_fn/light_off_fold_2.json
+  transform:
+  - name: resize
+    ratio: 0.5
+#    height: 128
+#    width: 384
+  - name: sift
+    nfeatures: 50
+    contrastThreshold: 0.09
+
+training:
+  data_loader:
+    batch_size: 512
+    shuffle: True
+  epoch: 100
+  criterion: torch.nn.TripletMarginLoss
+
+model:
+  name: model.siamese.Siamese502SIFT
+  args:
+    nfeatures: 50
+  folder: tmp/

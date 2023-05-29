@@ -1,0 +1,29 @@
+name: siamese502-off
+
+dataset:
+  folder: camera-0-light-off
+  grayscale: False
+  class: model.datasets.pallet502.SiameseDataset
+  args:
+    dup: 1
+    shuffle: False  # shuffle image ordering when reading dataset
+    max_sample: None
+    train_ratio: 0.6  # if < 1.0, do train_test_split
+    split_by_pid: True  # no pallet overlapping between train/test
+  transform:
+  - name: resize
+    height: 512
+    width: 768
+
+training:
+  data_loader:
+    batch_size: 1
+    shuffle: True
+  epoch: 100
+  criterion: torch.nn.TripletMarginLoss
+
+model:
+  name: model.siamese.Siamese502
+  args:
+    img_num_channel: 3
+  folder: tmp/

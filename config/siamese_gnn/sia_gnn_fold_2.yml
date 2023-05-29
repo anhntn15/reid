@@ -1,0 +1,27 @@
+name: siamese-gnn-fold-2
+
+dataset:
+  folder: graphrepr
+  class: model.datasets.graphrepr.SiameseGNNDataset
+  args:
+    raw_file: fold_2.npz
+    dup: 10
+
+
+training:
+  data_loader:
+    batch_size: 1024
+    shuffle: True
+  epoch: 50
+  criterion:
+    name: torch.nn.TripletMarginLoss
+    margin: 0.3
+
+model:
+  name: model.siamese.SiameseGNN
+  args:
+    node_features: 10
+    gcn_hidden_channels: 128
+    fc_hidden_channels: 64
+    emb_features: 50
+  folder: tmp/

@@ -1,0 +1,28 @@
+name: siamese-gnn-no-pool
+
+dataset:
+  folder: graphrepr
+  class: model.datasets.graphrepr.SiameseGNNDataset
+  args:
+    raw_file: anhgraph.npz
+    dup: 8
+
+
+training:
+  data_loader:
+    batch_size: 1024
+    shuffle: True
+  epoch: 100
+  criterion:
+    name: torch.nn.TripletMarginLoss
+    margin: 0.2
+
+model:
+  name: model.siamese.SiameseGNN
+  args:
+    node_features: 10
+    gcn_hidden_channels: 128
+    fc_hidden_channels: 64
+    emb_features: 50
+    global_pool: False
+  folder: tmp/
