@@ -120,7 +120,7 @@ class SiameseGNN(nn.Module):
 
         from torch_geometric.nn import GCNConv
         # trick to experiment with GAT instead of GCN, uncomment the below:
-        # from torch_geometric.nn import GCNConv as GAT
+        # from torch_geometric.nn import GAT as GCNConv
         self.conv1 = GCNConv(node_features, gcn_hidden_channels)
         self.conv2 = GCNConv(gcn_hidden_channels, gcn_hidden_channels)
         self.conv3 = GCNConv(gcn_hidden_channels, gcn_hidden_channels)

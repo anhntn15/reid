@@ -86,6 +86,7 @@ Experiment with variants of [Siamese models](model/siamese.py).
 The required inputs for inference step are:
 - the config file that used for training step. From the config file, model architecture, training dataset, folder that contains all trained models are determined. All trained models will be loaded, infer all data point in the original dataset, then save output to the current working folder.
 - type of data representation: `gnn` for graph and `502` for images.
+
 Example: `python training/inference_embs.py -t gnn -cf tmp/exp1/gnn_fold_0.yml tmp/exp1/gnn_fold_1.yml`
 
 ## Evaluation
