@@ -38,6 +38,7 @@ def train_siamese(cf_file: str):
             optimizer.step()
 
             total_loss += loss.item()
+            print('batch loss:', loss.item())
         logger.info('Epoch:{}, Loss:{:.4f}'.format(epoch, total_loss / len(train_loader)))
 
         if epoch % 5 == 0 or epoch == epochs:
@@ -146,10 +147,11 @@ def get_embeddings(model, output, test_loader, gallery_loader):
 
 parser = argparse.ArgumentParser(description='Train Siamese model with Pallet502 dataset from .yml file')
 parser.add_argument('-cf', '--config',
-                    nargs=1,
+                    nargs='+',
                     type=str,
                     help="path to model's config file")
 parser.add_argument('-m', '--mode', type=str, choices=['normal', 'selective'],
+                    default='normal',
                     help="mode to train:\t"
                          "`normal` uses whole triplet, `selective` uses 10% of triplets with highest loss.")
 
