@@ -70,7 +70,7 @@ def get_embs(model, model_path, test_loader, gallery_loader, train_loader, type:
     with torch.no_grad():
         train_embs, train_pids = [], []
         for (batch, pid) in train_loader:
-            if type == 'siamese502':
+            if type == '502':
                 emb = model.feed(batch).cpu().numpy()
             if type == 'gnn':
                 emb = model.feed(batch.x, batch.edge_index, None)
@@ -81,7 +81,7 @@ def get_embs(model, model_path, test_loader, gallery_loader, train_loader, type:
 
         test_embs, test_pids = [], []
         for (batch, pid) in test_loader:
-            if type == 'siamese502':
+            if type == '502':
                 emb = model.feed(batch).cpu().numpy()
             if type == 'gnn':
                 emb = model.feed(batch.x, batch.edge_index, None)
@@ -92,7 +92,7 @@ def get_embs(model, model_path, test_loader, gallery_loader, train_loader, type:
 
         g_embs, g_pids = [], []
         for (batch, pid) in gallery_loader:
-            if type == 'siamese502':
+            if type == '502':
                 emb = model.feed(batch).cpu().numpy()
             if type == 'gnn':
                 emb = model.feed(batch.x, batch.edge_index, None)
@@ -130,7 +130,6 @@ parser.add_argument('-cf', '--config',
                     help="path to model's config file, 1+ file")
 parser.add_argument('-t', '--type',
                     type=str,
-                    nargs=1,
                     choices=['gnn', '502'],
                     default='gnn',
                     help="type of dataset")

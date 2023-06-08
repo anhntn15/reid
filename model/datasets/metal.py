@@ -42,6 +42,7 @@ class SiameseMetalDataset(Dataset):
         self.triplets = []
         self.dup = dup
         self.inference = inference
+        self.filenames = []
 
         self.process()
 
@@ -53,18 +54,19 @@ class SiameseMetalDataset(Dataset):
         f = np.load(os.path.join(self.folder, self.raw_file))
 
         if self.subset_type == SubsetType.TRAIN:
-            return f['x'], f['i']
+            return f['x'], f['i'], f['fn']
 
         if self.subset_type == SubsetType.TEST:
-            return f['tx'], f['ti']
+            return f['tx'], f['ti'], f['tn']
 
         if self.subset_type == SubsetType.GALLERY:
-            return f['gx'], f['gi']
+            return f['gx'], f['gi'], f['gn']
 
     def process(self):
         t = transforms.ToTensor()
-        features, ids = self.read_features()
+        features, ids, fn = self.read_features()
         features = [t(i) for i in features]
+        self.filenames = fn
 
         # create graph-triplets
         if self.subset_type == SubsetType.TRAIN and not self.inference:
