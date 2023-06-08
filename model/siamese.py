@@ -23,7 +23,7 @@ class Siamese502(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d((2, 2)),
             nn.Flatten(),
-            nn.Linear(89600, 1024),
+            nn.Linear(65536, 1024),
             nn.ReLU(),
             nn.Linear(1024, 512),
             nn.ReLU(),
