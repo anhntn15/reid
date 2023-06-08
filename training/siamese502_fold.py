@@ -155,12 +155,14 @@ parser.add_argument('-m', '--mode', type=str, choices=['normal', 'selective'],
 
 arg = parser.parse_args()
 if arg.config:
-    print('loading config file:', arg.config[0])
-    if arg.mode == 'normal':
-        train_siamese(arg.config[0])
-    elif arg.mode == 'selective':
-        selective_train_siamese(arg.config[0])
-    else:
-        print('accept mode: normal|selective')
+    if arg.mode not in ['normal', 'selective']:
+        raise Exception('accept mode: normal|selective')
+
+    for cf in arg.config:
+        print('loading config file:', cf)
+        if arg.mode == 'normal':
+            train_siamese(cf)
+        elif arg.mode == 'selective':
+            selective_train_siamese(cf)
 else:
     print('training/siamese502_fold.py -h')
