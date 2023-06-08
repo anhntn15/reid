@@ -149,7 +149,7 @@ parser.add_argument('-cf', '--config',
                     nargs=1,
                     type=str,
                     help="path to model's config file")
-parser.add_argument('-m', '--mode', nargs=1, type=str, choices=['normal', 'selective'],
+parser.add_argument('-m', '--mode', type=str, choices=['normal', 'selective'],
                     help="mode to train:\t"
                          "`normal` uses whole triplet, `selective` uses 10% of triplets with highest loss.")
 

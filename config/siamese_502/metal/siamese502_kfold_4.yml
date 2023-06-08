@@ -1,0 +1,22 @@
+name: siamese502-kfold-metal-4
+
+dataset:
+  folder: metal
+  grayscale: False
+  class: model.datasets.metal.SiameseMetalDataset
+  args:
+    dup: 5
+    raw_file: fold4.npz
+
+training:
+  data_loader:
+    batch_size: 256
+    shuffle: True
+  epoch: 40
+  criterion: torch.nn.TripletMarginLoss
+
+model:
+  name: model.siamese.Siamese502
+  args:
+    img_num_channel: 3
+  folder: tmp/
